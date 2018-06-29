@@ -1,11 +1,11 @@
 {
-  "name": "myMoneyFrontend",
+  "name": "PAS",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --colors --inline --hot",
-    "start": "webpack-dev-server --progress --colors --inline --hot",
+    "start": "node app.js",
     "prod": "webpack --progress -p"
   },
   "keywords": [],
