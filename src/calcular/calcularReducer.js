@@ -22,7 +22,15 @@ export default (state = INITIAL_STATE, action) => {
                 tribut: action.payload.tribut,
                 lucroDesej: +action.payload.lucroDesej
             }
-
+        
+        case "CALCULAR_FETECHED":
+            return { ...state,
+                txICMS: +action.payload.txICMS,
+                pa: + action.payload.pa,
+                precoVenda: + action.payload.precoVenda,
+            }
+        
+       
         default:
             return state
     }

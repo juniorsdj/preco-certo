@@ -43,15 +43,22 @@ export function calcularPosNota(){
         nf.taxaAM = (nf.icmsAgreg/100)/nf.totalNotaFiscal
 
         if(calc.tribut === 'ST'){
-            nf.txICMS = nf.icmsAgreg
+            calc.txICMS = nf.icmsAgreg
         }
         else{
-           nf.txICMS = (nf.IcmsOrigem/100) - (nf.IcmsDestino/100)
+           calc.txICMS = (nf.IcmsOrigem/100) - (nf.IcmsDestino/100)
         }
+        calc.pa = calc.precoUn*(1+nf.taxaSeguro + nf.taxaFrete + (nf.Ipi/100)+ nf.taxaOutrasDespesas -nf.taxaDesconto + calc.txICMS)
+        debugger
+        calc.precoVenda = calc.pa/(1-((calc.alqSuperSimples+calc.lucroDesej)/100))
 
         dispatch({
             type: "CALCULAR_NOTA_FISCAL",
             payload: nf
+        })
+        dispatch({
+            type: "CALCULAR_FETECHED",
+            payload: calc
         })
     }
 }

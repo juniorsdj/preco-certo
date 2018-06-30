@@ -34,7 +34,7 @@ class Calcular extends Component {
 
 
     componentWillMount() {
-        const { getList, getMedia, list, calcularPosNota } = this.props
+        const { getList, getMedia, list } = this.props
         getMedia(list)
         getList()
         
@@ -51,7 +51,7 @@ class Calcular extends Component {
     }
     render() {
         const { exibirResult, precoConcorrente, precoSugerido, alqMA } = this.state
-        const { list, setAlqMA } = this.props
+        const { list, setAlqMA, calcularPosNota, calcular } = this.props
         if (list.length < 12) {
             return (
                 <div>
@@ -118,7 +118,7 @@ class Calcular extends Component {
                                     <label>Preço de venda normal:</label>
                                 </Grid>
                                 <Grid cols='4'>
-                                    <span>R$</span><input readOnly='true' value={`Calculado`} />
+                                    <span>R$</span><input readOnly='true' value={calcular.precoVenda} />
                                 </Grid>
 
                             </Row>
@@ -189,7 +189,8 @@ class Calcular extends Component {
 
 
 const mapStateToProps = state => ({
-    list: state.faturamento.list
+    list: state.faturamento.list,
+    calcular: state.calcular
 })
 const mapDispatchToProps = dispatch => bindActionCreators({ getMedia, getList, setAlqMA, setDados, calcularPosNota }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Calcular)
