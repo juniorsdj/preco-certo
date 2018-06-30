@@ -12,7 +12,7 @@ import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
 import Form from './notaFiscalForm'
 
-import { create, remove, calcularNf, init, showContent, getNota } from './notasFiscaisActionCreators'
+import { create, remove, calcularNf, init, showContent,  } from './notasFiscaisActionCreators'
 
 
 const baseURL = 'http://localhost:3003/api/'
@@ -20,7 +20,7 @@ const baseURL = 'http://localhost:3003/api/'
 class NotasFiscais extends Component {
 
     componentWillMount() {
-        const { init, getNota } = this.props
+        const { init } = this.props
         init()
     }
 
@@ -58,7 +58,7 @@ class NotasFiscais extends Component {
 const mapStateToProps = state => ({
     nf: state.notaFiscal.nf
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ create, calcularNf, remove, init, showContent, getNota }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ create, calcularNf, remove, init, showContent,  }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(NotasFiscais)
 
 

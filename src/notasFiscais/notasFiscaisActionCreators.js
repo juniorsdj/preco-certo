@@ -16,13 +16,13 @@ const base_URL = 'http://localhost:3003/api'
 const INITIAL_VALUES = {}
 
 
-export function getNota() {
-    const request = Axios.get(`${base_URL}/notaFiscal`)
-    return {
-        type: "NOTA_FISCAL_FETECHED",
-        payload: request
-    }
-}
+// export function getNota() {
+//     const request = Axios.get(`${base_URL}/notaFiscal`)
+//     return {
+//         type: "NOTA_FISCAL_FETECHED",
+//         payload: request
+//     }
+// }
 
 export function create(values) {
     console.log(values)
@@ -44,11 +44,11 @@ export function calcularNf() {
         }
         nf.taxaSeguro = nf.totalNotaFiscal/nf.seguroMercadoria
         nf.taxaFrete = nf.frete/nf.totalNotaFiscal
-        nf.difAliquota = nf.IcmsDestino/nf.IcmsOrigem
+        nf.difAliquota = (nf.IcmsDestino/100) - (nf.IcmsOrigem/100)
         nf.taxaOutrasDespesas = nf.outrasDespesas/nf.totalNotaFiscal
         nf.taxaDesconto = nf.descRecebidos/nf.totalNotaFiscal
-        nf.baseN = nf.totalNotaFiscal + nf.seguroMercadoria + nf.frete + nf.outrasDespesas + nf.ipi - nf.descRecebidos
-        nf.baseSubsTribut = nf.baseN* (1+ nf.alqMargemAgreg)
+        nf.baseN = nf.totalNotaFiscal + nf.seguroMercadoria + nf.frete + nf.outrasDespesas - nf.descRecebidos
+        console.log(nf)
         dispatch({
             type: "CALCULAR_NOTA_FISCAL",
             payload: nf
@@ -78,7 +78,7 @@ export function showContent(idTab, notaFiscal) {
 
 export function init() {
     return [
-        getNota(),
+        // getNota(),
         showTabs('tabCreate'),
         selectTab('tabCreate'),
         initialize('notaFiscalForm', INITIAL_VALUES)

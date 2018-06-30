@@ -11,6 +11,7 @@ import Label from './../common/form/labelAndInput'
 import Input from './../common/form/input'
 
 import { getMedia, getList } from './../faturamento/faturamentoActionCreators'
+import { setAlqMA, setDados,calcularPosNota } from './calcularActionCreators'
 
 import Axios from 'axios'
 
@@ -27,26 +28,30 @@ class Calcular extends Component {
             exibirResult: false,
             precoConcorrente: 0,
             precoSugerido: 0,
+            alqMA: 0,
         }
     }
 
 
     componentWillMount() {
-        const { getList, getMedia, list } = this.props
+        const { getList, getMedia, list, calcularPosNota } = this.props
         getMedia(list)
         getList()
+        
     }
     calcular() {
-        const { precoUn, tribut, lucroDesej } = this.state
-        if (!precoUn || !tribut || !lucroDesej) {
+        const { precoUn, tribut, lucroDesej, alqMA } = this.state
+        const {setDados} = this.props
+        if (!precoUn || !tribut || !lucroDesej || !alqMA) {
             alert('Preencher todos os Campos')
         } else {
+            setDados({precoUn, tribut, lucroDesej, alqMA})
             this.setState({ ...this.state, exibirResult: true })
         }
     }
     render() {
-        const { exibirResult, precoConcorrente, precoSugerido } = this.state
-        const { list } = this.props
+        const { exibirResult, precoConcorrente, precoSugerido, alqMA } = this.state
+        const { list, setAlqMA } = this.props
         if (list.length < 12) {
             return (
                 <div>
@@ -65,9 +70,13 @@ class Calcular extends Component {
                         <Grid cols='5'>
                             <label style={{ paddingLeft: '15px', fontWeight: 'bold', textAlign: 'center' }}>
                                 Preço UN</label>
+                                <br/>
+                            <label style={{ paddingLeft: '15px', fontWeight: 'bold', textAlign: 'center' }}>
+                                Alíquota da margem agregada:</label>
                         </Grid>
                         <Grid cols='4'>
                             <span>R$</span><input min='0' name='precoUn' onChange={(event) => this.setState({ ...this.state, precoUn: event.target.value })} label='Preço UN:' type='Number' span='R$' />
+                            <input min='0' name='alqMA' onChange={(event) => this.setState({ ...this.state, alqMA: event.target.value })} label=':' type='Number' /><span>%</span>
                         </Grid>
                     </Row>
                     <br />
@@ -97,7 +106,7 @@ class Calcular extends Component {
                     <Row>
                         <Grid cols='8'></Grid>
                         <Grid cols='4'>
-                            <button style={{ marginTop: 2 + 'em' }} type='button' onClick={() => this.calcular()} className='primary'> Calcular</button>
+                            <button style={{ marginTop: 2 + 'em' }} type='button' onClick={() => ( this.calcular(),this.props.calcularPosNota())} className='primary'> Calcular</button>
                         </Grid>
                     </Row>
                     {(exibirResult) && (
@@ -182,6 +191,6 @@ class Calcular extends Component {
 const mapStateToProps = state => ({
     list: state.faturamento.list
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ getMedia, getList }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ getMedia, getList, setAlqMA, setDados, calcularPosNota }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Calcular)
 
