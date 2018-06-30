@@ -26,8 +26,8 @@ class despesasFixasList extends Component {
         })
     }
     renderRows() {
-        const {list} = this.props
-        console.log(list)
+        const {list, getSum} = this.props
+       
         return this.calcular(list).map((despFixa, index) => (
             <tr key={index}>
                 <td>{despFixa.mes}</td>
@@ -37,7 +37,8 @@ class despesasFixasList extends Component {
                     <button className='btn btn-danger' onClick={() => this.props.remove(despFixa._id)}> <i className='fa fa-trash'></i></button></td>
 
             </tr>
-        ))
+        )
+    )
 
     }
 
@@ -45,6 +46,7 @@ class despesasFixasList extends Component {
 
 
     render() {
+        const {list, getSum} = this.props
         return (
             <div>
                 <table className='table'>
@@ -58,6 +60,7 @@ class despesasFixasList extends Component {
                     </thead>
                     <tbody>
                         {this.renderRows()}
+                        { list ? getSum() : null}
                     </tbody>
                 </table>
             </div>

@@ -42,6 +42,7 @@ class despesasVariaveisList extends Component {
     }
 
     render() {
+        const {list, getSum} = this.props
         return (
             <div>
                 <table className='table'>
@@ -55,6 +56,7 @@ class despesasVariaveisList extends Component {
                     </thead>
                     <tbody>
                         {this.renderRows()}
+                        {list ? getSum() : null}
                     </tbody>
                 </table>
             </div>

@@ -1,10 +1,8 @@
 const INITIAL_STATE = {
     despesasVariaveis:[],
     despesasFixas:[],
-    despesasFixasMedia: 0,
-    despesasVariaveisMedia: 0,
-    despesasFixasSum: [],
-    despesasVariaveisSum: [],
+    despesasFixasSum: 0,
+    despesasVariaveisSum: 0,
 }
 
 export default (state = INITIAL_STATE, action )=>{
@@ -16,11 +14,11 @@ export default (state = INITIAL_STATE, action )=>{
         case "DESPESAS_VARIAVEIS_MEDIA_FETECHED":
             return {...state, despesasVariaveisMedia: action.payload }
         case "DESPESAS_FIXAS_SUM_FETECHED":
-            return {...state, despesasFixasSum: action.payload.data }
+            return {...state, despesasFixasSum: action.payload }
         case "DESPESAS_VARIAVEIS_FETECHED":
             return {...state, despesasVariaveis: action.payload.data }
         case "DESPESAS_VARIAVEIS_SUM_FETECHED":
-            return {...state, despesasVariaveisSum: action.payload.data }
+            return {...state, despesasVariaveisSum: action.payload }
         default :
             return state
     }
