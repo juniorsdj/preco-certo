@@ -1,14 +1,5 @@
-const INITIAL_STATE = {nf: [{
-    IcmsDestino: 1,
-    IcmsOrigem: 2,
-    Ipi: 1,
-    descRecebidos: 0,
-    frete: 20,
-    numeroNF: 123421,
-    outrasDespesas: 0,
-    seguroMercadoria: 41,
-    totalNotaFiscal: 120}
-]}
+const INITIAL_STATE = {
+}
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {

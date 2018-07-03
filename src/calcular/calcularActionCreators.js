@@ -49,8 +49,7 @@ export function calcularPosNota(){
            calc.txICMS = (nf.IcmsOrigem/100) - (nf.IcmsDestino/100)
         }
         calc.pa = calc.precoUn*(1+nf.taxaSeguro + nf.taxaFrete + (nf.Ipi/100)+ nf.taxaOutrasDespesas -nf.taxaDesconto + calc.txICMS)
-        debugger
-        calc.precoVenda = calc.pa/(1-((calc.alqSuperSimples+calc.lucroDesej)/100))
+        calc.precoVenda = calc.pa*(1+((calc.alqSuperSimples/100)+(calc.lucroDesej/100)))
 
         dispatch({
             type: "CALCULAR_NOTA_FISCAL",
@@ -63,7 +62,6 @@ export function calcularPosNota(){
     }
 }
 export function getAliquota(sum) {
-    console.log(sum)
     return dispatch => {
         let alq = 0
         if (sum <= 180000) {
